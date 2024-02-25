@@ -4,6 +4,9 @@ import '@nomiclabs/hardhat-waffle'
 import 'hardhat-typechain'
 import 'hardhat-watcher'
 
+import * as dotenv from "dotenv";
+dotenv.config({ path: __dirname + '/.env' });
+
 const LOW_OPTIMIZER_COMPILER_SETTINGS = {
   version: '0.7.6',
   settings: {
