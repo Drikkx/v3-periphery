@@ -11,13 +11,11 @@ const LOW_OPTIMIZER_COMPILER_SETTINGS = {
   version: "0.8.22",
   settings: {
     metadata: {
-      // Not including the metadata hash
-      // https://github.com/paulrberg/solidity-template/issues/31
       bytecodeHash: "none",
     },
     optimizer: {
       enabled: true,
-      runs: 1000000,
+      runs: 100,
     },
   },
 }
@@ -32,7 +30,7 @@ const LOWEST_OPTIMIZER_COMPILER_SETTINGS = {
     },
     optimizer: {
       enabled: true,
-      runs: 1000000,
+      runs: 100,
     },
   },
 }

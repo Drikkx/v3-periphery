@@ -3,7 +3,6 @@ pragma solidity 0.8.22;
 
 import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
 import '@openzeppelin/contracts/utils/Address.sol';
-
 import '../libraries/ChainId.sol';
 import '../interfaces/external/IERC1271.sol';
 import '../interfaces/IERC721Permit.sol';
@@ -22,11 +21,7 @@ abstract contract ERC721Permit is BlockTimestamp, ERC721, IERC721Permit {
     bytes32 private immutable versionHash;
 
     /// @notice Computes the nameHash and versionHash
-    constructor(
-        string memory name_,
-        string memory symbol_,
-        string memory version_
-    ) ERC721(name_, symbol_) {
+    constructor(string memory name_, string memory symbol_, string memory version_) ERC721(name_, symbol_) {
         nameHash = keccak256(bytes(name_));
         versionHash = keccak256(bytes(version_));
     }
@@ -62,18 +57,17 @@ abstract contract ERC721Permit is BlockTimestamp, ERC721, IERC721Permit {
     ) external payable override {
         require(_blockTimestamp() <= deadline, 'Permit expired');
 
-        bytes32 digest =
-            keccak256(
-                abi.encodePacked(
-                    '\x19\x01',
-                    DOMAIN_SEPARATOR(),
-                    keccak256(abi.encode(PERMIT_TYPEHASH, spender, tokenId, _getAndIncrementNonce(tokenId), deadline))
-                )
-            );
+        bytes32 digest = keccak256(
+            abi.encodePacked(
+                '\x19\x01',
+                DOMAIN_SEPARATOR(),
+                keccak256(abi.encode(PERMIT_TYPEHASH, spender, tokenId, _getAndIncrementNonce(tokenId), deadline))
+            )
+        );
         address owner = ownerOf(tokenId);
         require(spender != owner, 'ERC721Permit: approval to current owner');
 
-        if (Address.isContract(owner)) {
+        if (isContract(owner)) {
             require(IERC1271(owner).isValidSignature(digest, abi.encodePacked(r, s, v)) == 0x1626ba7e, 'Unauthorized');
         } else {
             address recoveredAddress = ecrecover(digest, v, r, s);
@@ -81,6 +75,17 @@ abstract contract ERC721Permit is BlockTimestamp, ERC721, IERC721Permit {
             require(recoveredAddress == owner, 'Unauthorized');
         }
 
-        _approve(spender, tokenId);
+        _approve(spender, tokenId, address(0));
+    }
+
+    function isContract(address account) internal view returns (bool) {
+        // Selon la spécification EVM, une adresse est considérée comme un contrat si elle a du code.
+        // Cela exclut les contrats en cours de création.
+        uint256 size;
+        // Assembly inline pour accéder à l'opérateur `extcodesize`
+        assembly {
+            size := extcodesize(account)
+        }
+        return size > 0;
     }
 }

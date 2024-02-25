@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 pragma solidity 0.8.22;
 
-import '@uniswap/v3-core/contracts/libraries/SafeCast.sol';
-import '@uniswap/v3-core/contracts/libraries/TickMath.sol';
-import '@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol';
+import '@flagswap/v3-core/contracts/libraries/SafeCast.sol';
+import '@flagswap/v3-core/contracts/libraries/TickMath.sol';
+import '@flagswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol';
 
 import './interfaces/ISwapRouter.sol';
 import './base/PeripheryImmutableState.sol';
 import './base/PeripheryValidation.sol';
-import './base/PeripheryPaymentsWithFee.sol';
+import './base/PeripheryPayments.sol';
 import './base/Multicall.sol';
 import './base/SelfPermit.sol';
 import './libraries/Path.sol';
@@ -21,7 +21,7 @@ contract SwapRouter is
     ISwapRouter,
     PeripheryImmutableState,
     PeripheryValidation,
-    PeripheryPaymentsWithFee,
+    PeripheryPayments,
     Multicall,
     SelfPermit
 {
