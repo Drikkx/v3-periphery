@@ -8,11 +8,8 @@ import '../interfaces/IPeripheryImmutableState.sol';
 abstract contract PeripheryImmutableState is IPeripheryImmutableState {
     /// @inheritdoc IPeripheryImmutableState
     address public immutable override factory;
-    /// @inheritdoc IPeripheryImmutableState
-    address public immutable override WETH9;
 
-    constructor(address _factory, address _WETH9) {
+    constructor(address _factory) {
         factory = _factory;
-        WETH9 = _WETH9;
     }
 }

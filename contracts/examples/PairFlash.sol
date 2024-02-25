@@ -22,9 +22,8 @@ contract PairFlash is IUniswapV3FlashCallback, PeripheryPayments {
 
     constructor(
         ISwapRouter _swapRouter,
-        address _factory,
-        address _WETH9
-    ) PeripheryImmutableState(_factory, _WETH9) {
+        address _factory
+    ) PeripheryImmutableState(_factory) {
         swapRouter = _swapRouter;
     }
 
