@@ -8,43 +8,46 @@ import * as dotenv from "dotenv";
 dotenv.config({ path: __dirname + '/.env' });
 
 const LOW_OPTIMIZER_COMPILER_SETTINGS = {
-  version: '0.7.6',
+  version: "0.8.22",
   settings: {
-    evmVersion: 'istanbul',
+    metadata: {
+      // Not including the metadata hash
+      // https://github.com/paulrberg/solidity-template/issues/31
+      bytecodeHash: "none",
+    },
     optimizer: {
       enabled: true,
-      runs: 2_000,
-    },
-    metadata: {
-      bytecodeHash: 'none',
+      runs: 1000000,
     },
   },
 }
 
 const LOWEST_OPTIMIZER_COMPILER_SETTINGS = {
-  version: '0.7.6',
+  version: "0.8.22",
   settings: {
-    evmVersion: 'istanbul',
+    metadata: {
+      // Not including the metadata hash
+      // https://github.com/paulrberg/solidity-template/issues/31
+      bytecodeHash: "none",
+    },
     optimizer: {
       enabled: true,
-      runs: 1_000,
-    },
-    metadata: {
-      bytecodeHash: 'none',
+      runs: 1000000,
     },
   },
 }
 
 const DEFAULT_COMPILER_SETTINGS = {
-  version: '0.7.6',
+  version: "0.8.22",
   settings: {
-    evmVersion: 'istanbul',
+    metadata: {
+      // Not including the metadata hash
+      // https://github.com/paulrberg/solidity-template/issues/31
+      bytecodeHash: "none",
+    },
     optimizer: {
       enabled: true,
-      runs: 1_000_000,
-    },
-    metadata: {
-      bytecodeHash: 'none',
+      runs: 1000000,
     },
   },
 }
