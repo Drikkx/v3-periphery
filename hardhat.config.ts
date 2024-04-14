@@ -78,6 +78,9 @@ export default {
     optimism: {
       url: `https://optimism-mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
     },
+    astarTestnet: { 
+      url: 'https://rpc.startale.com/zkyoto',
+    },
   },
   etherscan: {
     // Your API key for Etherscan
